@@ -27,13 +27,15 @@ void CGameFramework::OnDestroy()
 
 void CGameFramework::BuildFrameBuffer()
 {
-	::GetClientRect(m_hWnd, &m_rcClient);
+	::GetClientRect(m_hWnd, &m_rcClient);	// 클라이언트의 크기를 가져와서
 
-	HDC hDC = ::GetDC(m_hWnd);
+	HDC hDC = ::GetDC(m_hWnd);				// 클라이언트DC를 가져온다
 
-    m_hDCFrameBuffer = ::CreateCompatibleDC(hDC);
+    m_hDCFrameBuffer = ::CreateCompatibleDC(hDC);// 컴페터블한 dc를 만들고
+	// 컴페터블한 bitmap을만들어서..
 	m_hBitmapFrameBuffer = ::CreateCompatibleBitmap(hDC, m_rcClient.right - m_rcClient.left, m_rcClient.bottom - m_rcClient.top);
     ::SelectObject(m_hDCFrameBuffer, m_hBitmapFrameBuffer);
+	// 그림을 그린다.
 
 	::ReleaseDC(m_hWnd, hDC);
     ::SetBkMode(m_hDCFrameBuffer, TRANSPARENT);
@@ -41,6 +43,8 @@ void CGameFramework::BuildFrameBuffer()
 
 void CGameFramework::ClearFrameBuffer(DWORD dwColor)
 {
+	// 내가 원하는 색깔로 지운다
+
 	HPEN hPen = ::CreatePen(PS_SOLID, 0, dwColor);
 	HPEN hOldPen = (HPEN)::SelectObject(m_hDCFrameBuffer, hPen);
 	HBRUSH hBrush = ::CreateSolidBrush(dwColor);
@@ -195,11 +199,11 @@ void CGameFramework::AnimateObjects()
 	if (m_pScene) m_pScene->Animate(fTimeElapsed);
 }
 
-void CGameFramework::FrameAdvance()
+void CGameFramework::FrameAdvance()	// frame마다 이걸 한다.
 {    
 	m_GameTimer.Tick(0.0f);
 
-	ProcessInput();
+	ProcessInput();	// 사용자 입력 처리
 
 	AnimateObjects();
 

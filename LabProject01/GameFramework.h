@@ -14,15 +14,15 @@ private:
 	HINSTANCE					m_hInstance = NULL;
 	HWND						m_hWnd = NULL;
 
-	RECT						m_rcClient;
+	RECT						m_rcClient;					// 메인 윈도우의 클라이언트 영역을 나타내는 사각형
 
-    HDC							m_hDCFrameBuffer = NULL;
+    HDC							m_hDCFrameBuffer = NULL;	// hdc:현재 윈도우의 클라이언트 영역에 출력하기위한 클라이언트dc
     HBITMAP						m_hBitmapFrameBuffer = NULL;
     HBITMAP						m_hBitmapSelect = NULL;
 
-	CPlayer*					m_pPlayer = NULL;
+	CPlayer*					m_pPlayer = NULL;			// 플레이어 오브젝트
 
-	CScene*						m_pScene = NULL;
+	CScene*						m_pScene = NULL;			// 게임 오브젝트들의 리스트
 
 	CGameTimer					m_GameTimer;
 

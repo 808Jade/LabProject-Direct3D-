@@ -55,7 +55,7 @@ public:
 
 private:
 	int							m_nPolygons = 0;
-	CPolygon					**m_ppPolygons = NULL;
+	CPolygon					**m_ppPolygons = NULL;	// Polygon들의 배열
 
 public:
 	void SetPolygon(int nIndex, CPolygon *pPolygon);

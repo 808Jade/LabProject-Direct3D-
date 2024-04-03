@@ -10,7 +10,7 @@ public:
 	virtual ~CPlayer();
 
 private:
-	CCamera*					m_pCamera = NULL;
+	CCamera*					m_pCamera = NULL;		// 플레이어는 카메라를 갖고있는거야.
 
 public:
 	void SetPosition(float x, float y, float z);

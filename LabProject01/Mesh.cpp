@@ -49,6 +49,8 @@ void Draw2DLine(HDC hDCFrameBuffer, CPoint3D& f3PreviousProject, CPoint3D& f3Cur
 {
 	CPoint3D f3Previous = CGraphicsPipeline::ScreenTransform(f3PreviousProject);
 	CPoint3D f3Current = CGraphicsPipeline::ScreenTransform(f3CurrentProject);
+
+	// winapi함수 : 2d선분을 그릴 수 있다.
 	::MoveToEx(hDCFrameBuffer, (long)f3Previous.x, (long)f3Previous.y, NULL);
 	::LineTo(hDCFrameBuffer, (long)f3Current.x, (long)f3Current.y);
 }

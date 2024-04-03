@@ -59,7 +59,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		} 
 		else 
 		{
-			gGameFramework.FrameAdvance();
+			gGameFramework.FrameAdvance();	// 하나의 프레임을 처리를 해라
 		}
 	}
 	gGameFramework.OnDestroy();
@@ -119,7 +119,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
 	RECT rc = { 0, 0, FRAMEBUFFER_WIDTH, FRAMEBUFFER_HEIGHT };
 	DWORD dwStyle = WS_OVERLAPPED | WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU | WS_BORDER;
-	AdjustWindowRect(&rc, dwStyle, FALSE);
+	AdjustWindowRect(&rc, dwStyle, FALSE);	// 그 크기만한 윈도우를 생성
 	HWND hMainWnd = CreateWindow(szWindowClass, szTitle, dwStyle, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, NULL, NULL, hInstance, NULL);
 
 	if (!hMainWnd) return(FALSE);

@@ -36,6 +36,7 @@ private:
 
 	CViewport*					m_pViewport = NULL;
 	float						m_fAspectRatio = float(FRAMEBUFFER_WIDTH) / float(FRAMEBUFFER_HEIGHT);
+	// Á¾È¾ºñ
 
 public:
 	CPoint3D CameraTransform(CPoint3D& f3World);
