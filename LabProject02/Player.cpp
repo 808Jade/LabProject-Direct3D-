@@ -164,6 +164,7 @@ void CAirplanePlayer::OnUpdateTransform()
 	CPlayer::OnUpdateTransform();
 
 	XMStoreFloat4x4(&m_xmf4x4World, XMMatrixMultiply(XMMatrixRotationRollPitchYaw(XMConvertToRadians(90.0f), 0.0f, 0.0f), XMLoadFloat4x4(&m_xmf4x4World)));
+	// 비행기의 앞머리가 Z축을 향하게끔 (x축 기준 90도 회전)
 }
 
 //void CAirplanePlayer::Render(HDC hDCFrameBuffer, CCamera* pCamera)

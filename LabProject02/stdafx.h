@@ -19,6 +19,7 @@
 #include <Mmsystem.h>
 #pragma comment(lib, "winmm.lib")
 
+// DirectXMath »ç¿ë
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
 #include <DirectXColors.h>

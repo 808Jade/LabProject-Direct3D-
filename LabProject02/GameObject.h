@@ -13,7 +13,7 @@ public:
 	bool						m_bActive = true;
 
 	CMesh*						m_pMesh = NULL;
-	XMFLOAT4X4					m_xmf4x4World = Matrix4x4::Identity();
+	XMFLOAT4X4					m_xmf4x4World = Matrix4x4::Identity();	// 행렬 사용
 
 	DWORD						m_dwColor = RGB(255, 0, 0);
 

@@ -317,7 +317,10 @@ void CScene::CheckPlayerByWallCollision()
 
 void CScene::CheckObjectByBulletCollisions()
 {
+	// 플레이어가 발사한 총알의 리스트를 가져다가
 	CBulletObject** ppBullets = ((CAirplanePlayer*)m_pPlayer)->m_ppBullets;
+
+	// 오브젝트들 간의 충돌을 체크 (더 좋은 방법도 있다.)
 	for (int i = 0; i < m_nObjects; i++)
 	{
 		for (int j = 0; j < BULLETS; j++)

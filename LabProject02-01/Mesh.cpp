@@ -175,6 +175,7 @@ CCubeMesh::CCubeMesh(float fWidth, float fHeight, float fDepth) : CMesh(6)
 	pRightFace->SetVertex(3, CVertex(+fHalfWidth, -fHalfHeight, -fHalfDepth));
 	SetPolygon(5, pRightFace);
 
+	// 바운딩 박스를 위해서 위치와 익스텐트 필요. (회전 x)
 	m_xmOOBB = BoundingOrientedBox(XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(fHalfWidth, fHalfHeight, fHalfDepth), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 }
 

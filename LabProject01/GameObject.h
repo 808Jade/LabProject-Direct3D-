@@ -20,7 +20,7 @@ private:
 	float					m_fxScale = 1.0f;
 	float					m_fyScale = 1.0f;
 	float					m_fzScale = 1.0f;
-	//----------------------- 월드 변환을 하기 위해 필요한 정보
+	//--------------------- 월드 변환을 하기 위해 필요한 정보
 
     CMesh					*m_pMesh = NULL;        
 	DWORD					m_dwColor = RGB(255, 0, 0);

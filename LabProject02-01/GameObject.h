@@ -15,9 +15,9 @@ public:
 	CMesh*						m_pMesh = NULL;
 	XMFLOAT4X4					m_xmf4x4World = Matrix4x4::Identity();
 
-	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();
+	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();	// 충돌검사 박스
 
-	CGameObject*				m_pObjectCollided = NULL;
+	CGameObject*				m_pObjectCollided = NULL;	// 다른 충돌된 게임 오브젝트에 대한 포인터
 	DWORD						m_dwDefaultColor = RGB(255, 0, 0);
 	DWORD						m_dwColor = RGB(255, 0, 0);
 
@@ -84,7 +84,7 @@ public:
 	virtual void Animate(float fElapsedTime);
 };
 
-class CExplosiveObject : public CRotatingObject
+class CExplosiveObject : public CRotatingObject	// 폭발하는 게임 오브젝트
 {
 public:
 	CExplosiveObject();
@@ -104,7 +104,7 @@ public:
 
 public:
 	static CMesh*				m_pExplosionMesh;
-	static XMFLOAT3				m_pxmf3SphereVectors[EXPLOSION_DEBRISES];
+	static XMFLOAT3				m_pxmf3SphereVectors[EXPLOSION_DEBRISES];	// 폭발할 때 움직일 방향(매번 계산 안하게끔)
 
 	static void PrepareExplosion();
 };

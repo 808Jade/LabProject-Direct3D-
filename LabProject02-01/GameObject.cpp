@@ -138,13 +138,16 @@ void CGameObject::UpdateBoundingBox()
 {
 	if (m_pMesh)
 	{
+		// Mesh가 갖고있는 바운딩 박스를 -> 현재 게임오브잭트의 월드변환행렬로 변환, OOBB에 저장.
 		m_pMesh->m_xmOOBB.Transform(m_xmOOBB, XMLoadFloat4x4(&m_xmf4x4World));
+		// OOBB의 Orientation 을 바운드박스의 OOBB에 저장
 		XMStoreFloat4(&m_xmOOBB.Orientation, XMQuaternionNormalize(XMLoadFloat4(&m_xmOOBB.Orientation)));
 	}
 }
 
 void CGameObject::Animate(float fElapsedTime)
 {
+	//if (m_fRotationSpeed != 0.0f) Rotate(m_xmf3RotationAxis, m_fRotationSpeed * fElapsedTime);
 	if (m_fMovingSpeed != 0.0f) Move(m_xmf3MovingDirection, m_fMovingSpeed * fElapsedTime);
 
 	UpdateBoundingBox();

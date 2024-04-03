@@ -32,7 +32,7 @@ XMFLOAT3 CGraphicsPipeline::Project(XMFLOAT3& xmf3Model)
 	return(xmf3Project);
 }
 
-XMFLOAT3 CGraphicsPipeline::ScreenTransform(XMFLOAT3& xmf3Project)
+XMFLOAT3 CGraphicsPipeline::ScreenTransform(XMFLOAT3& xmf3Project)	// ÇÈ¼¿ÁÂÇ¥¸¦ Ã£¾Æ³¿
 {
 	XMFLOAT3 f3Screen = xmf3Project;
 
