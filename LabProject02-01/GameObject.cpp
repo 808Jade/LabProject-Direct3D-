@@ -169,11 +169,14 @@ void CGameObject::Render(HDC hDCFrameBuffer, XMFLOAT4X4* pxmf4x4World, CMesh* pM
 
 void CGameObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
+	// 게임오브잭트를 랜더하기 전에, 오브잭트가 카메라 절두체 안에 있는지를 확인. (컬링)
+	// 월드좌표계의 프러스텀
 	if (pCamera->IsInFrustum(m_xmOOBB)) CGameObject::Render(hDCFrameBuffer, &m_xmf4x4World, m_pMesh);
 }
 
 void CGameObject::GenerateRayForPicking(XMVECTOR& xmvPickPosition, XMMATRIX& xmmtxView, XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRayDirection)
 {
+	// 월드변환 행렬의 역행렬과 카메라변환 행렬을 곱한 것 (카메라 좌표 -> 모델 좌표)
 	XMMATRIX xmmtxToModel = XMMatrixInverse(NULL, XMLoadFloat4x4(&m_xmf4x4World) * xmmtxView);
 
 	XMFLOAT3 xmf3CameraOrigin(0.0f, 0.0f, 0.0f);

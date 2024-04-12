@@ -46,7 +46,7 @@ protected:
 	CPolygon					**m_ppPolygons = NULL;
 
 public:
-	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();
+	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();	// ¸ðµ¨ÁÂÇ¥°èÀÇ ¹Ù¿îµùÁÂÇ¥
 
 public:
 	void SetPolygon(int nIndex, CPolygon *pPolygon);

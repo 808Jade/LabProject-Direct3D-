@@ -8,10 +8,10 @@ public:
 	CGameTimer();
 	virtual ~CGameTimer();
 
-	void Tick(float fLockFPS = 0.0f);		// 타이머의 시간을 갱신한다.
 	void Start() { }
 	void Stop() { }
-	void Reset();						
+	void Reset();
+	void Tick(float fLockFPS = 0.0f);
 
 	unsigned long GetFrameRate(LPTSTR lpszString = NULL, int nCharacters = 0);// 프레임 레이트를 반환한다.
 	float GetTimeElapsed();					// 프레임의 평균 경과 시간을 반환한다.

@@ -1,0 +1,14 @@
+Projection 평면 P가 주어지면, 절두체 평면 6개의 평면의 방정식이 주어짐과 다름 없다.
+
+Bounding Frustum 구조체 (절두체 컬링을 위해)
+BoundingFrustum(XMMATRIX projection); *
+
+Containment Type
+
+근접점(Closest) 과 거리 - 점에서 선분 위의 가장 가까운 점.
+PointOnLineSegmentNearestPoint(p0,p1,q)
+근접점을 리턴하는 함수.
+
+PointInsideTriangle(...);
+삼각형 내부에 점이 있는지 판단하는 함수(뭘 리턴하는거지?)
+

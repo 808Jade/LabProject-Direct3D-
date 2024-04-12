@@ -37,8 +37,10 @@ private:
 
 	float						m_fAspectRatio = float(FRAMEBUFFER_WIDTH) / float(FRAMEBUFFER_HEIGHT);
 
-	BoundingFrustum				m_xmFrustumView = BoundingFrustum();
-	BoundingFrustum				m_xmFrustumWorld = BoundingFrustum();
+	// Projection 평면 P가 주어지면, 절두체 평면 6개의 평면의 방정식이 주어짐과 다름 없다.
+	// Bounding Frustum 구조체(절두체 컬링을 위해)
+	BoundingFrustum				m_xmFrustumView = BoundingFrustum();	// 카메라 좌표계의
+	BoundingFrustum				m_xmFrustumWorld = BoundingFrustum();	// 월드 좌표계의
 	XMFLOAT4X4					m_xmf4x4InverseView = Matrix4x4::Identity();
 
 public:
@@ -67,5 +69,6 @@ public:
 	void Rotate(float fPitch = 0.0f, float fYaw = 0.0f, float fRoll = 0.0f);
 	void Update(CPlayer* pPlayer, XMFLOAT3& xmf3LookAt, float fTimeElapsed = 0.016f);
 
+	// 안에 있으면 그리고 없으면 안그리고..
 	bool IsInFrustum(BoundingOrientedBox& xmBoundingBox);
 };

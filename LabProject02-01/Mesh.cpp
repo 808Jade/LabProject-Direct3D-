@@ -89,14 +89,16 @@ BOOL CMesh::RayIntersectionByTriangle(XMVECTOR& xmRayOrigin, XMVECTOR& xmRayDire
 int CMesh::CheckRayIntersection(XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRayDirection, float* pfNearHitDistance)
 {
 	int nIntersections = 0;
+	// 먼저 바운딩 박스와 충돌검사를 해보고,
 	bool bIntersected = m_xmOOBB.Intersects(xmvPickRayOrigin, xmvPickRayDirection, *pfNearHitDistance);
+	// 됐으면 어떤 메쉬와 충돌되었는지 검사하겠다.
 	if (bIntersected)
 	{
 		for (int i = 0; i < m_nPolygons; i++)
 		{
 			switch (m_ppPolygons[i]->m_nVertices)
 			{
-			case 3:
+			case 3:	// 정점이 세 개인 경우
 			{
 				XMVECTOR v0 = XMLoadFloat3(&(m_ppPolygons[i]->m_pVertices[0].m_xmf3Position));
 				XMVECTOR v1 = XMLoadFloat3(&(m_ppPolygons[i]->m_pVertices[1].m_xmf3Position));
@@ -105,7 +107,7 @@ int CMesh::CheckRayIntersection(XMVECTOR& xmvPickRayOrigin, XMVECTOR& xmvPickRay
 				if (bIntersected) nIntersections++;
 				break;
 			}
-			case 4:
+			case 4:	// 네 개인 경우
 			{
 				XMVECTOR v0 = XMLoadFloat3(&(m_ppPolygons[i]->m_pVertices[0].m_xmf3Position));
 				XMVECTOR v1 = XMLoadFloat3(&(m_ppPolygons[i]->m_pVertices[1].m_xmf3Position));

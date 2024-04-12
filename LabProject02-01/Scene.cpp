@@ -200,9 +200,10 @@ void CScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wPar
 CGameObject* CScene::PickObjectPointedByCursor(int xClient, int yClient, CCamera* pCamera)
 {
 	XMFLOAT3 xmf3PickPosition;
+	// 카메라 좌표계의 x, y
 	xmf3PickPosition.x = (((2.0f * xClient) / (float)pCamera->m_Viewport.m_nWidth) - 1) / pCamera->m_xmf4x4PerspectiveProject._11;
 	xmf3PickPosition.y = -(((2.0f * yClient) / (float)pCamera->m_Viewport.m_nHeight) - 1) / pCamera->m_xmf4x4PerspectiveProject._22;
-	xmf3PickPosition.z = 1.0f;
+	xmf3PickPosition.z = 1.0f;	// RAY
 
 	XMVECTOR xmvPickPosition = XMLoadFloat3(&xmf3PickPosition);
 	XMMATRIX xmmtxView = XMLoadFloat4x4(&pCamera->m_xmf4x4View);
@@ -225,7 +226,7 @@ CGameObject* CScene::PickObjectPointedByCursor(int xClient, int yClient, CCamera
 
 void CScene::CheckObjectByObjectCollisions()
 {
-	for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->m_pObjectCollided = NULL;
+	for (int i = 0; i < m_nObjects; i++) m_ppObjects[i]->m_pObjectCollided = NULL;	// 초기화
 	for (int i = 0; i < m_nObjects; i++)
 	{
 		for (int j = (i + 1); j < m_nObjects; j++)
@@ -263,7 +264,7 @@ void CScene::CheckObjectByWallCollisions()
 		case DISJOINT:
 		{
 			int nPlaneIndex = -1;
-			for (int j = 0; j < 6; j++)
+			for (int j = 0; j < 6; j++)	// 어떤 평면에 부딛혔는지
 			{
 				PlaneIntersectionType intersectType = m_ppObjects[i]->m_xmOOBB.Intersects(XMLoadFloat4(&m_pWallsObject->m_pxmf4WallPlanes[j]));
 				if (intersectType == BACK)

@@ -15,7 +15,7 @@ public:
 	CMesh*						m_pMesh = NULL;
 	XMFLOAT4X4					m_xmf4x4World = Matrix4x4::Identity();
 
-	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();	// 충돌검사 박스
+	BoundingOrientedBox			m_xmOOBB = BoundingOrientedBox();	// 충돌검사 박스(월드 좌표계의 바운딩 박스)
 
 	CGameObject*				m_pObjectCollided = NULL;	// 다른 충돌된 게임 오브젝트에 대한 포인터
 	DWORD						m_dwDefaultColor = RGB(255, 0, 0);
