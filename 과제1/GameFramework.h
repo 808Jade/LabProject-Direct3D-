@@ -47,6 +47,7 @@ public:
 
 	void ProcessInput();
 	void AnimateObjects();
+	void DrawTextToFrameBuffer(const TCHAR* strText, int x, int y, COLORREF color);
 	void FrameAdvance();
 
 	void OnProcessingMouseMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);

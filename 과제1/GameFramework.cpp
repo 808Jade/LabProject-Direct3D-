@@ -226,6 +226,20 @@ void CGameFramework::AnimateObjects()
 	if (m_pScene) m_pScene->Animate(fTimeElapsed);
 }
 
+void CGameFramework::DrawTextToFrameBuffer(const TCHAR* strText, int x, int y, COLORREF color)
+{
+	HFONT hFont = CreateFont(48, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE, ANSI_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, _T("Arial"));
+	HFONT hOldFont = (HFONT)SelectObject(m_hDCFrameBuffer, hFont);
+	SetTextColor(m_hDCFrameBuffer, color);
+	SetBkMode(m_hDCFrameBuffer, TRANSPARENT);
+
+	RECT textRect = { x, y, m_rcClient.right, m_rcClient.bottom };
+	DrawText(m_hDCFrameBuffer, strText, -1, &textRect, DT_SINGLELINE | DT_NOCLIP);
+
+	SelectObject(m_hDCFrameBuffer, hOldFont);
+	DeleteObject(hFont);
+}
+
 void CGameFramework::FrameAdvance()
 {    
 	m_GameTimer.Tick(60.0f);
@@ -233,8 +247,10 @@ void CGameFramework::FrameAdvance()
 	ProcessInput();
 
 	if (!m_bGameStarted) {
-		::SetWindowText(m_hWnd, _T("Press 'Z' to start the game"));
-		return;
+		ClearFrameBuffer(RGB(255, 255, 255));  // Clear to a blank white screen
+		DrawTextToFrameBuffer(_T("Press 'Z' to start the game"), 100, 100, RGB(255, 0, 0));  // Red text
+		PresentFrameBuffer();
+		return;  // Skip the rest of the frame processing
 	}
 
 
