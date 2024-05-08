@@ -38,6 +38,7 @@ bool CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 	//Direct3D 디바이스, 명령 큐와 명령 리스트, 스왑 체인 등을 생성하는 함수를 호출한다.
 	CreateDirect3DDevice();
 	CreateCommandQueueAndList();
+	CreateRtvAndDsvDescriptorHeaps(); // 원래 없던 부분
 	CreateSwapChain();
 	CreateDepthStencilView();
 
@@ -123,7 +124,6 @@ void CGameFramework::CreateSwapChain()
 	//“Alt+Enter” 키의 동작을 비활성화한다.
 
 #ifndef _WITH_SWAPCHAIN_FULLSCREEN_STATE
-	CreateRtvAndDsvDescriptorHeaps();
 	CreateRenderTargetViews();
 #endif
 }
@@ -264,8 +264,7 @@ void CGameFramework::CreateDepthStencilView()
 	d3dResourceDesc.MipLevels = 1;
 	d3dResourceDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	d3dResourceDesc.SampleDesc.Count = (m_bMsaa4xEnable) ? 4 : 1;
-	d3dResourceDesc.SampleDesc.Quality = (m_bMsaa4xEnable) ? (m_nMsaa4xQualityLevels - 1)
-		: 0;
+	d3dResourceDesc.SampleDesc.Quality = (m_bMsaa4xEnable) ? (m_nMsaa4xQualityLevels - 1) : 0;
 	d3dResourceDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
 	d3dResourceDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
 	D3D12_HEAP_PROPERTIES d3dHeapProperties;
@@ -347,8 +346,8 @@ LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMess
 	{
 	case WM_SIZE:
 	{
-		m_nWndClientWidth = LOWORD(lParam);
-		m_nWndClientHeight = HIWORD(lParam);
+		//m_nWndClientWidth = LOWORD(lParam);
+		//m_nWndClientHeight = HIWORD(lParam);
 		break;
 	}
 	case WM_LBUTTONDOWN:
@@ -464,8 +463,8 @@ void CGameFramework::FrameAdvance()
 	dxgiPresentParameters.pDirtyRects = NULL;
 	dxgiPresentParameters.pScrollRect = NULL;
 	dxgiPresentParameters.pScrollOffset = NULL;
-	m_pdxgiSwapChain->Present(0, 0);
-
+	//m_pdxgiSwapChain->Present(0, 0);
+	m_nSwapChainBufferIndex = m_pdxgiSwapChain->GetCurrentBackBufferIndex();
 	/*
 		현재의 프레임 레이트를 문자열로 가져와서 주 윈도우의 타이틀로 출력한다. m_pszBuffer 문자열이
 		"LapProject ("으로 초기화되었으므로 (m_pszFrameRate+12)에서부터 프레임 레이트를 문자열로 출력

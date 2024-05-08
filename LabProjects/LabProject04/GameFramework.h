@@ -12,8 +12,8 @@ public:
 
 	void OnDestroy();
 	void CreateSwapChain();
-	void CreateRtvAndDsvDescriptorHeaps();
 	void CreateDirect3DDevice();
+	void CreateRtvAndDsvDescriptorHeaps();
 	void CreateCommandQueueAndList();
 	//스왑 체인, 디바이스, 서술자 힙, 명령 큐/할당자/리스트를 생성하는 함수이다.
 
