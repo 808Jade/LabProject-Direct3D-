@@ -84,7 +84,7 @@ void CCamera::GeneratePerspectiveProjectionMatrix(float fNearPlaneDistance, floa
 	BoundingFrustum::CreateFromMatrix(m_xmFrustumView, xmmtxProjection);
 }
 
-// 직교 투영 행렬 생성, 카메라 객체에 저장
+// 직교 투영 행렬 생성, 
 void CCamera::GenerateOrthographicProjectionMatrix(float fNearPlaneDistance, float fFarPlaneDistance, float fWidth, float hHeight)
 {
 	XMMATRIX xmmtxProjection = XMMatrixOrthographicLH(fWidth, hHeight, fNearPlaneDistance, fFarPlaneDistance);

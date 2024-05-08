@@ -181,7 +181,7 @@ void CScene::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPARAM wPar
 			pExplosiveObject->m_bBlowingUp = true;
 			break;
 		}
-		case 'A':
+		case 'Q':
 			for (int i = 0; i < m_nObjects; i++)
 			{
 				CExplosiveObject* pExplosiveObject = (CExplosiveObject*)m_ppObjects[i];
