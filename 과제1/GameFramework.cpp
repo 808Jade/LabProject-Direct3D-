@@ -183,17 +183,17 @@ void CGameFramework::ProcessInput()
 	static UCHAR pKeyBuffer[256];
 	if (GetKeyboardState(pKeyBuffer)) {
 		if (!m_bGameStarted) {
-			if (pKeyBuffer[VK_UP] & 0xF0) {
+			if (pKeyBuffer[0x5A] & 0xF0) {
 				m_bGameStarted = true;
 			}
 			return;
 		}
 
 		DWORD dwDirection = 0;
-		if (pKeyBuffer[VK_UP] & 0xF0) dwDirection |= DIR_FORWARD;
-		if (pKeyBuffer[VK_DOWN] & 0xF0) dwDirection |= DIR_BACKWARD;
-		if (pKeyBuffer[VK_LEFT] & 0xF0) dwDirection |= DIR_LEFT;
-		if (pKeyBuffer[VK_RIGHT] & 0xF0) dwDirection |= DIR_RIGHT;
+		if (pKeyBuffer[0x57] & 0xF0) dwDirection |= DIR_FORWARD;
+		if (pKeyBuffer[0x53] & 0xF0) dwDirection |= DIR_BACKWARD;
+		if (pKeyBuffer[0x41] & 0xF0) dwDirection |= DIR_LEFT;
+		if (pKeyBuffer[0x44] & 0xF0) dwDirection |= DIR_RIGHT;
 		if (pKeyBuffer[VK_PRIOR] & 0xF0) dwDirection |= DIR_UP;
 		if (pKeyBuffer[VK_NEXT] & 0xF0) dwDirection |= DIR_DOWN;
 
