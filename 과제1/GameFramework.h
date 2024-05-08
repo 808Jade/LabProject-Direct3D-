@@ -32,6 +32,8 @@ private:
 
 	_TCHAR						m_pszFrameRate[50];
 
+	bool						m_bGameStarted = false;
+
 public:
 	void OnCreate(HINSTANCE hInstance, HWND hMainWnd);
 	void OnDestroy();

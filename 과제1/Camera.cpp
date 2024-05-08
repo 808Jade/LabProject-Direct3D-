@@ -74,6 +74,7 @@ void CCamera::SetFOVAngle(float fFOVAngle)
 	m_fProjectRectDistance = float(1.0f / tan(DegreeToRadian(fFOVAngle * 0.5f)));
 }
 
+// 원근 투영 행렬 생성, 카메라 객체에 저장
 void CCamera::GeneratePerspectiveProjectionMatrix(float fNearPlaneDistance, float fFarPlaneDistance, float fFOVAngle)
 {
 	float fAspectRatio = (float(m_Viewport.m_nWidth) / float(m_Viewport.m_nHeight));
@@ -83,6 +84,7 @@ void CCamera::GeneratePerspectiveProjectionMatrix(float fNearPlaneDistance, floa
 	BoundingFrustum::CreateFromMatrix(m_xmFrustumView, xmmtxProjection);
 }
 
+// 직교 투영 행렬 생성, 카메라 객체에 저장
 void CCamera::GenerateOrthographicProjectionMatrix(float fNearPlaneDistance, float fFarPlaneDistance, float fWidth, float hHeight)
 {
 	XMMATRIX xmmtxProjection = XMMatrixOrthographicLH(fWidth, hHeight, fNearPlaneDistance, fFarPlaneDistance);

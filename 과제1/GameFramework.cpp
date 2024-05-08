@@ -14,9 +14,9 @@ void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 
 	BuildFrameBuffer(); 
 
-	BuildObjects(); 
+	BuildObjects();
 
-	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));
+	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));	// 문자열 복사 함수
 }
 
 void CGameFramework::OnDestroy()
@@ -181,8 +181,14 @@ LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMess
 void CGameFramework::ProcessInput()
 {
 	static UCHAR pKeyBuffer[256];
-	if (GetKeyboardState(pKeyBuffer))
-	{
+	if (GetKeyboardState(pKeyBuffer)) {
+		if (!m_bGameStarted) {
+			if (pKeyBuffer[VK_UP] & 0xF0) {
+				m_bGameStarted = true;
+			}
+			return;
+		}
+
 		DWORD dwDirection = 0;
 		if (pKeyBuffer[VK_UP] & 0xF0) dwDirection |= DIR_FORWARD;
 		if (pKeyBuffer[VK_DOWN] & 0xF0) dwDirection |= DIR_BACKWARD;
@@ -194,8 +200,7 @@ void CGameFramework::ProcessInput()
 		if (dwDirection) m_pPlayer->Move(dwDirection, 0.15f);
 	}
 
-	if (GetCapture() == m_hWnd)
-	{
+	if (GetCapture() == m_hWnd) {
 		SetCursor(NULL);
 		POINT ptCursorPos;
 		GetCursorPos(&ptCursorPos);
@@ -224,8 +229,14 @@ void CGameFramework::AnimateObjects()
 void CGameFramework::FrameAdvance()
 {    
 	m_GameTimer.Tick(60.0f);
-
+	
 	ProcessInput();
+
+	if (!m_bGameStarted) {
+		::SetWindowText(m_hWnd, _T("Press 'Z' to start the game"));
+		return;
+	}
+
 
 	AnimateObjects();
 
@@ -239,5 +250,3 @@ void CGameFramework::FrameAdvance()
 	m_GameTimer.GetFrameRate(m_pszFrameRate + 12, 37);
 	::SetWindowText(m_hWnd, m_pszFrameRate);
 }
-
-
