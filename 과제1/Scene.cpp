@@ -32,7 +32,7 @@ void CScene::BuildObjects()
 
 	CCubeMesh* pCubeMesh = new CCubeMesh(4.0f, 4.0f, 4.0f);
 
-	m_nObjects = 1;
+	m_nObjects = 2;
 	m_ppObjects = new CGameObject* [m_nObjects];
 
 	CExplosiveObject *pExplosiveObject = new CExplosiveObject();
@@ -44,6 +44,16 @@ void CScene::BuildObjects()
 	pExplosiveObject->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
 	pExplosiveObject->SetMovingSpeed(10.5f);
 	m_ppObjects[0] = pExplosiveObject;
+
+	CShootingObject* pShootingObject = new CShootingObject();
+	pShootingObject->SetMesh(pCubeMesh);
+	pShootingObject->SetColor(RGB(0, 255, 0));
+	pShootingObject->SetPosition(-13.5f, 0.0f, -14.0f);
+	pShootingObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 1.0f));
+	pShootingObject->SetRotationSpeed(90.0f);
+	pShootingObject->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
+	pShootingObject->SetMovingSpeed(10.5f);
+	m_ppObjects[1] = pShootingObject;
 
 	//pExplosiveObject = new CExplosiveObject();
 	//pExplosiveObject->SetMesh(pCubeMesh);

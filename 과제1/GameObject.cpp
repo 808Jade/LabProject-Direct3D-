@@ -330,6 +330,32 @@ void CShootingObject::FireBullet(CGameObject* pLockedObject)
 
 void CShootingObject::Animate(float fElapsedTime) 
 {
+	if (m_bBlowingUp)
+	{
+		m_fElapsedTimes += fElapsedTime;
+		if (m_fElapsedTimes <= m_fDuration)
+		{
+			XMFLOAT3 xmf3Position = GetPosition();
+			for (int i = 0; i < EXPLOSION_DEBRISES; i++)
+			{
+				m_pxmf4x4Transforms[i] = Matrix4x4::Identity();
+				m_pxmf4x4Transforms[i]._41 = xmf3Position.x + m_pxmf3SphereVectors[i].x * m_fExplosionSpeed * m_fElapsedTimes;
+				m_pxmf4x4Transforms[i]._42 = xmf3Position.y + m_pxmf3SphereVectors[i].y * m_fExplosionSpeed * m_fElapsedTimes;
+				m_pxmf4x4Transforms[i]._43 = xmf3Position.z + m_pxmf3SphereVectors[i].z * m_fExplosionSpeed * m_fElapsedTimes;
+				m_pxmf4x4Transforms[i] = Matrix4x4::Multiply(Matrix4x4::RotationAxis(m_pxmf3SphereVectors[i], m_fExplosionRotation * m_fElapsedTimes), m_pxmf4x4Transforms[i]);
+			}
+		}
+		else
+		{
+			m_bBlowingUp = false;
+			m_fElapsedTimes = 0.0f;
+			SetColor(m_dwDefaultColor);
+		}
+	}
+	else
+	{
+		CRotatingObject::Animate(fElapsedTime);
+	}
 	for (int i = 0; i < BulletCount; i++) {
 		if (m_ppBullets[i]->m_bActive) m_ppBullets[i]->Animate(fElapsedTime);
 	}
@@ -338,7 +364,17 @@ void CShootingObject::Animate(float fElapsedTime)
 void CShootingObject::Render(HDC hDCFrameBuffer, CCamera* pCamera) 
 {
 	for (int i = 0; i < BulletCount; i++) if (m_ppBullets[i]->m_bActive) m_ppBullets[i]->Render(hDCFrameBuffer, pCamera);
-
+	if (m_bBlowingUp)
+	{
+		for (int i = 0; i < EXPLOSION_DEBRISES; i++)
+		{
+			CGameObject::Render(hDCFrameBuffer, &m_pxmf4x4Transforms[i], m_pExplosionMesh);
+		}
+	}
+	else
+	{
+		CGameObject::Render(hDCFrameBuffer, pCamera);
+	}
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -421,6 +457,7 @@ void CBulletObject::Animate(float fElapsedTime)
 	if ((m_fMovingDistance > m_fBulletEffectiveRange) || (m_fElapsedTimeAfterFire > m_fLockingTime)) Reset();
 }
 */
+
 void CBulletObject::Animate(float fElapsedTime)
 {
 	m_fElapsedTimeAfterFire += fElapsedTime;

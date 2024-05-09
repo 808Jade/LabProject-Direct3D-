@@ -159,7 +159,7 @@ public:
 };
 
 #define BulletCount	1
-class CShootingObject : public CRotatingObject // 슈팅하는 게임 오브젝트
+class CShootingObject : public CExplosiveObject // 슈팅하는 게임 오브젝트
 {
 public:
 	CShootingObject();
