@@ -169,7 +169,7 @@ public:
 
 	CBulletObject* m_ppBullets[BulletCount];
 
-	void FireBullet(CGameObject* pLockedObject);
+	void FireBullet(XMFLOAT3 pLockedPlayer);
 
 	//virtual void OnUpdateTransform();
 	virtual void Animate(float fElapsedTime);

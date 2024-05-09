@@ -305,7 +305,7 @@ CShootingObject::CShootingObject()
 		m_ppBullets[i]->SetMesh(pBulletMesh);
 		m_ppBullets[i]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
 		m_ppBullets[i]->SetRotationSpeed(360.0f);
-		m_ppBullets[i]->SetMovingSpeed(120.0f);
+		m_ppBullets[i]->SetMovingSpeed(20.0f);
 		m_ppBullets[i]->SetActive(false);
 	}
 }
@@ -315,14 +315,14 @@ CShootingObject::~CShootingObject()
 	for (int i = 0; i < BulletCount; i++) if (m_ppBullets[i]) delete m_ppBullets[i];
 }
 
-void CShootingObject::FireBullet(CGameObject* pLockedObject) 
+void CShootingObject::FireBullet(XMFLOAT3 pLockedPlayer)
 {
 	// 총알 발사 로직
 	for (int i = 0; i < BulletCount; i++) {
 		if (!m_ppBullets[i]->m_bActive) {
 			m_ppBullets[i]->SetActive(true);
 			m_ppBullets[i]->SetPosition(GetPosition());
-			m_ppBullets[i]->SetMovingDirection(GetLook()); // 'Look' 방향으로 총알 발사
+			m_ppBullets[i]->SetMovingDirection(pLockedPlayer); // 'Look' 방향으로 총알 발사
 			break;
 		}
 	}
