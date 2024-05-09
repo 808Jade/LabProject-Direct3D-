@@ -4,6 +4,7 @@
 
 #include "stdafx.h"
 #include "GameFramework.h"
+#include "OBJLoader.h"
 
 void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 {
@@ -25,6 +26,12 @@ void CGameFramework::OnDestroy()
 
 	if (m_hBitmapFrameBuffer) ::DeleteObject(m_hBitmapFrameBuffer);
 	if (m_hDCFrameBuffer) ::DeleteDC(m_hDCFrameBuffer);
+
+	if (m_pStartButton) {
+		delete m_pStartButton;
+		m_pStartButton = nullptr;
+	}
+
 }
 
 void CGameFramework::BuildFrameBuffer()
@@ -78,6 +85,12 @@ void CGameFramework::BuildObjects()
 	m_pPlayer->SetColor(RGB(0, 0, 255));
 	m_pPlayer->SetCamera(pCamera);
 	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
+
+	COBJLoader objLoader;  // Create an instance of OBJLoader
+	CMesh* pStartButtonMesh = objLoader.Load("test.obj"); // Ensure you have an ObjLoader capable of this
+	m_pStartButton = new CGameObject();
+	m_pStartButton->SetMesh(pStartButtonMesh);
+	m_pStartButton->SetPosition(1.0f, 1.0f, 0); // Set appropriate position
 
 	m_pScene = new CScene(m_pPlayer);
 	m_pScene->BuildObjects();
@@ -247,10 +260,10 @@ void CGameFramework::FrameAdvance()
 	ProcessInput();
 
 	if (!m_bGameStarted) {
-		ClearFrameBuffer(RGB(255, 255, 255));  // Clear to a blank white screen
-		DrawTextToFrameBuffer(_T("Press 'Z' to start the game"), 100, 100, RGB(255, 0, 0));  // Red text
+		ClearFrameBuffer(RGB(255, 255, 255));
+		DrawTextToFrameBuffer(_T("Press 'Z' to start the game"), 100, 100, RGB(255, 0, 0));
 		PresentFrameBuffer();
-		return;  // Skip the rest of the frame processing
+		return;
 	}
 
 

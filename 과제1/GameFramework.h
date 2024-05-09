@@ -33,6 +33,8 @@ private:
 	_TCHAR						m_pszFrameRate[50];
 
 	bool						m_bGameStarted = false;
+	CGameObject*				m_pStartButton = NULL;
+
 
 public:
 	void OnCreate(HINSTANCE hInstance, HWND hMainWnd);
