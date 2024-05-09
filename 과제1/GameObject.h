@@ -82,7 +82,10 @@ public:
 	void SetRotationSpeed(float fSpeed) { m_fRotationSpeed = fSpeed; }
 
 	virtual void Animate(float fElapsedTime);
+	//void FireBullet(CPlayer* pPlayer);
 };
+
+#define BULLET					1
 
 class CExplosiveObject : public CRotatingObject	// 폭발하는 게임 오브젝트
 {
@@ -90,6 +93,7 @@ public:
 	CExplosiveObject();
 	virtual ~CExplosiveObject();
 
+public:
 	bool						m_bBlowingUp = false;
 
 	XMFLOAT4X4					m_pxmf4x4Transforms[EXPLOSION_DEBRISES];
@@ -108,6 +112,23 @@ public:
 
 	static void PrepareExplosion();
 };
+
+//class cshootingobject : public crotatingobject // 슈팅하는 게임 오브젝트
+//{
+//public:
+//	cshootingobject();
+//	virtual ~cshootingobject();
+//
+//	float						m_fbulleteffectiverange = 150.0f;
+//
+//	cbulletobject* m_ppbullets[bullet];
+//
+//	void firebullet(cgameobject* plockedobject);
+//
+//	virtual void onupdatetransform();
+//	virtual void animate(float felapsedtime);
+//	virtual void render(hdc hdcframebuffer, xmfloat4x4* pxmf4x4world, cmesh* pmesh);
+//};
 
 class CWallsObject : public CGameObject
 {

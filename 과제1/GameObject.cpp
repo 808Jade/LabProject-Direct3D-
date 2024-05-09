@@ -279,6 +279,7 @@ void CExplosiveObject::Animate(float fElapsedTime)
 	}
 }
 
+
 void CExplosiveObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 {
 	if (m_bBlowingUp)

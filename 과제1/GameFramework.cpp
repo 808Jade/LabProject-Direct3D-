@@ -6,6 +6,7 @@
 #include "GameFramework.h"
 #include "OBJLoader.h"
 
+
 void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 {
 	::srand(timeGetTime());
@@ -86,11 +87,12 @@ void CGameFramework::BuildObjects()
 	m_pPlayer->SetCamera(pCamera);
 	m_pPlayer->SetCameraOffset(XMFLOAT3(0.0f, 5.0f, -15.0f));
 
-	COBJLoader objLoader;  // Create an instance of OBJLoader
-	CMesh* pStartButtonMesh = objLoader.Load("test.obj"); // Ensure you have an ObjLoader capable of this
-	m_pStartButton = new CGameObject();
-	m_pStartButton->SetMesh(pStartButtonMesh);
-	m_pStartButton->SetPosition(1.0f, 1.0f, 0); // Set appropriate position
+	//COBJLoader objLoader;
+	//CMesh* pStartButtonMesh = objLoader.Load("test.obj");
+	//m_pStartButton = new CGameObject();
+	//m_pStartButton->SetPosition(0.0f, 0.0f, 0.0f);
+	//m_pStartButton->SetMesh(pStartButtonMesh);
+	// m_pScene->BuildObjects(); 이 부분의 수정이 필요해 보임
 
 	m_pScene = new CScene(m_pPlayer);
 	m_pScene->BuildObjects();
@@ -261,7 +263,7 @@ void CGameFramework::FrameAdvance()
 
 	if (!m_bGameStarted) {
 		ClearFrameBuffer(RGB(255, 255, 255));
-		DrawTextToFrameBuffer(_T("Press 'Z' to start the game"), 100, 100, RGB(255, 0, 0));
+		DrawTextToFrameBuffer(_T("Press 'Z' to start the game"), 70, 200, RGB(255, 0, 0));
 		PresentFrameBuffer();
 		return;
 	}
