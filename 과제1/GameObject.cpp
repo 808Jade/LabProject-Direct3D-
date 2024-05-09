@@ -315,17 +315,53 @@ CShootingObject::~CShootingObject()
 	for (int i = 0; i < BulletCount; i++) if (m_ppBullets[i]) delete m_ppBullets[i];
 }
 
-void CShootingObject::FireBullet(XMFLOAT3 pLockedPlayer)
+void CShootingObject::FireBullet(CGameObject* pLockedObject)
 {
-	// 총알 발사 로직
-	for (int i = 0; i < BulletCount; i++) {
-		if (!m_ppBullets[i]->m_bActive) {
-			m_ppBullets[i]->SetActive(true);
-			m_ppBullets[i]->SetPosition(GetPosition());
-			m_ppBullets[i]->SetMovingDirection(pLockedPlayer); // 'Look' 방향으로 총알 발사
+	if (pLockedObject)
+	{
+		LookAt(pLockedObject->GetPosition(), XMFLOAT3(0.0f, 1.0f, 0.0f));
+		OnUpdateTransform();
+	}
+
+	CBulletObject* pBulletObject = NULL;
+	for (int i = 0; i < BulletCount; i++)
+	{
+		if (!m_ppBullets[i]->m_bActive)
+		{
+			pBulletObject = m_ppBullets[i];
 			break;
 		}
 	}
+
+	if (pBulletObject)
+	{
+		XMFLOAT3 xmf3Position = GetPosition();
+		XMFLOAT3 xmf3Direction = GetUp();
+		XMFLOAT3 xmf3FirePosition = Vector3::Add(xmf3Position, Vector3::ScalarProduct(xmf3Direction, 6.0f, false));
+
+		pBulletObject->m_xmf4x4World = m_xmf4x4World;
+
+		pBulletObject->SetFirePosition(xmf3FirePosition);
+		pBulletObject->SetMovingDirection(xmf3Direction);
+		pBulletObject->SetColor(RGB(255, 0, 0));
+		pBulletObject->SetActive(true);
+
+		if (pLockedObject)
+		{
+			pBulletObject->m_pLockedObject = pLockedObject;
+			pBulletObject->SetColor(RGB(0, 0, 255));
+		}
+	}
+
+	// 총알 발사 로직
+	//for (int i = 0; i < BulletCount; i++) {
+	//	if (!m_ppBullets[i]->m_bActive) {
+	//		m_ppBullets[i]->SetActive(true);
+	//		m_ppBullets[i]->SetPosition(GetPosition());
+	//		m_ppBullets[i]->SetMovingDirection(pLockedObject); // 'Look' 방향으로 총알 발사
+	//		break;
+	//	}
+	//}
 }
 
 void CShootingObject::Animate(float fElapsedTime) 

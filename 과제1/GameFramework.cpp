@@ -152,7 +152,7 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 			break;
 		case VK_CONTROL:
 			if (m_pLockedObject) {
-				((CShootingObject*)m_pLockedObject)->FireBullet(m_pPlayer->GetPosition());
+				((CShootingObject*)m_pLockedObject)->FireBullet(m_pPlayer);
 			}
 			((CAirplanePlayer*)m_pPlayer)->FireBullet(m_pLockedObject);
 			m_pLockedObject = NULL;
