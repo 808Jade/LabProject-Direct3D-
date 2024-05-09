@@ -294,7 +294,52 @@ void CExplosiveObject::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 		CGameObject::Render(hDCFrameBuffer, pCamera);
 	}
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+CShootingObject::CShootingObject()
+{
+	CCubeMesh* pBulletMesh = new CCubeMesh(1.0f, 4.0f, 1.0f);
+	for (int i = 0; i < BulletCount; i++)
+	{
+		m_ppBullets[i] = new CBulletObject(m_fBulletEffectiveRange);
+		m_ppBullets[i]->SetMesh(pBulletMesh);
+		m_ppBullets[i]->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 0.0f));
+		m_ppBullets[i]->SetRotationSpeed(360.0f);
+		m_ppBullets[i]->SetMovingSpeed(120.0f);
+		m_ppBullets[i]->SetActive(false);
+	}
+}
 
+CShootingObject::~CShootingObject()
+{
+	for (int i = 0; i < BulletCount; i++) if (m_ppBullets[i]) delete m_ppBullets[i];
+}
+
+void CShootingObject::FireBullet(CGameObject* pLockedObject) 
+{
+	// 총알 발사 로직
+	for (int i = 0; i < BulletCount; i++) {
+		if (!m_ppBullets[i]->m_bActive) {
+			m_ppBullets[i]->SetActive(true);
+			m_ppBullets[i]->SetPosition(GetPosition());
+			m_ppBullets[i]->SetMovingDirection(GetLook()); // 'Look' 방향으로 총알 발사
+			break;
+		}
+	}
+}
+
+void CShootingObject::Animate(float fElapsedTime) 
+{
+	for (int i = 0; i < BulletCount; i++) {
+		if (m_ppBullets[i]->m_bActive) m_ppBullets[i]->Animate(fElapsedTime);
+	}
+}
+
+void CShootingObject::Render(HDC hDCFrameBuffer, CCamera* pCamera) 
+{
+	for (int i = 0; i < BulletCount; i++) if (m_ppBullets[i]->m_bActive) m_ppBullets[i]->Render(hDCFrameBuffer, pCamera);
+
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 CBulletObject::CBulletObject(float fEffectiveRange)

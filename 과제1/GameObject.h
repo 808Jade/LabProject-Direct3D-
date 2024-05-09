@@ -85,8 +85,6 @@ public:
 	//void FireBullet(CPlayer* pPlayer);
 };
 
-#define BULLET					1
-
 class CExplosiveObject : public CRotatingObject	// 폭발하는 게임 오브젝트
 {
 public:
@@ -113,22 +111,7 @@ public:
 	static void PrepareExplosion();
 };
 
-//class cshootingobject : public crotatingobject // 슈팅하는 게임 오브젝트
-//{
-//public:
-//	cshootingobject();
-//	virtual ~cshootingobject();
-//
-//	float						m_fbulleteffectiverange = 150.0f;
-//
-//	cbulletobject* m_ppbullets[bullet];
-//
-//	void firebullet(cgameobject* plockedobject);
-//
-//	virtual void onupdatetransform();
-//	virtual void animate(float felapsedtime);
-//	virtual void render(hdc hdcframebuffer, xmfloat4x4* pxmf4x4world, cmesh* pmesh);
-//};
+
 
 class CWallsObject : public CGameObject
 {
@@ -172,5 +155,23 @@ public:
 	CAxisObject() { }
 	virtual ~CAxisObject() { }
 
+	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
+};
+
+#define BulletCount	1
+class CShootingObject : public CRotatingObject // 슈팅하는 게임 오브젝트
+{
+public:
+	CShootingObject();
+	virtual ~CShootingObject();
+
+	float						m_fBulletEffectiveRange = 150.0f;
+
+	CBulletObject* m_ppBullets[BulletCount];
+
+	void FireBullet(CGameObject* pLockedObject);
+
+	//virtual void OnUpdateTransform();
+	virtual void Animate(float fElapsedTime);
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);
 };
