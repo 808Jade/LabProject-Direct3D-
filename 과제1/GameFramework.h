@@ -35,6 +35,8 @@ private:
 	bool						m_bGameStarted = false;
 	CGameObject*				m_pStartButton = NULL;
 
+	bool m_bGameOvered = false;
+
 
 public:
 	void OnCreate(HINSTANCE hInstance, HWND hMainWnd);

@@ -32,28 +32,28 @@ void CScene::BuildObjects()
 
 	CCubeMesh* pCubeMesh = new CCubeMesh(4.0f, 4.0f, 4.0f);
 
-	m_nObjects = 2;
+	m_nObjects = 1;
 	m_ppObjects = new CGameObject* [m_nObjects];
 
-	CExplosiveObject *pExplosiveObject = new CExplosiveObject();
-	pExplosiveObject->SetMesh(pCubeMesh);
-	pExplosiveObject->SetColor(RGB(255, 0, 0));
-	pExplosiveObject->SetPosition(-13.5f, 0.0f, -14.0f);
-	pExplosiveObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 1.0f));
-	pExplosiveObject->SetRotationSpeed(90.0f);
-	pExplosiveObject->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
-	pExplosiveObject->SetMovingSpeed(10.5f);
-	m_ppObjects[0] = pExplosiveObject;
+	//CExplosiveObject *pExplosiveObject = new CExplosiveObject();
+	//pExplosiveObject->SetMesh(pCubeMesh);
+	//pExplosiveObject->SetColor(RGB(255, 0, 0));
+	//pExplosiveObject->SetPosition(-13.5f, 0.0f, -14.0f);
+	//pExplosiveObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 1.0f));
+	//pExplosiveObject->SetRotationSpeed(90.0f);
+	//pExplosiveObject->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
+	//pExplosiveObject->SetMovingSpeed(10.5f);
+	//m_ppObjects[0] = pExplosiveObject;
 
 	CShootingObject* pShootingObject = new CShootingObject();
 	pShootingObject->SetMesh(pCubeMesh);
-	pShootingObject->SetColor(RGB(0, 255, 0));
-	pShootingObject->SetPosition(13.5f, 0.0f, -14.0f);
+	pShootingObject->SetColor(RGB(255, 0, 0));
+	pShootingObject->SetPosition(13.5f, 0.0f, 14.0f);
 	pShootingObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 1.0f));
 	pShootingObject->SetRotationSpeed(90.0f);
 	pShootingObject->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
 	pShootingObject->SetMovingSpeed(10.5f);
-	m_ppObjects[1] = pShootingObject;
+	m_ppObjects[0] = pShootingObject;
 
 	//pExplosiveObject = new CExplosiveObject();
 	//pExplosiveObject->SetMesh(pCubeMesh);
@@ -346,6 +346,22 @@ void CScene::CheckObjectByBulletCollisions()
 	}
 }
 
+void CScene::CheckPlayerByBulletCollision()
+{
+	CBulletObject** ppBullets = ((CShootingObject*)m_ppObjects[0])->m_ppBullets;
+
+	for (int j = 0; j < 1; j++)
+	{
+		if (ppBullets[j]->m_bActive && m_pPlayer->m_xmOOBB.Intersects(ppBullets[j]->m_xmOOBB))
+		{
+			// 충돌 처리 로직
+			m_pPlayer->OnHit();  // 플레이어 히트 처리
+			ppBullets[j]->Reset();     // 총알 비활성화 및 초기화
+		}
+	}
+
+}
+
 void CScene::Animate(float fElapsedTime)
 {
 	m_pWallsObject->Animate(fElapsedTime);
@@ -360,7 +376,7 @@ void CScene::Animate(float fElapsedTime)
 
 	CheckObjectByBulletCollisions();
 
-	//CheckPlayerByBulletCollision();
+	CheckPlayerByBulletCollision();
 }
 
 void CScene::Render(HDC hDCFrameBuffer, CCamera* pCamera)

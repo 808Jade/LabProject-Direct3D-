@@ -385,7 +385,7 @@ void CShootingObject::Animate(float fElapsedTime)
 		{
 			m_bBlowingUp = false;
 			m_fElapsedTimes = 0.0f;
-			SetColor(RGB(0, 255, 0));
+			SetColor(RGB(255, 0, 0));
 		}
 	}
 	else

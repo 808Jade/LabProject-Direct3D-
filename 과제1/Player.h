@@ -48,6 +48,8 @@ public:
 
 	void SetCamera(CCamera* pCamera) { m_pCamera = pCamera; }
 	CCamera* GetCamera() { return(m_pCamera); }
+
+	void OnHit();
 };
 
 #define BULLETS					50

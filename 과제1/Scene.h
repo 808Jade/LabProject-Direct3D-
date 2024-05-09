@@ -17,6 +17,7 @@ private:
 	CWallsObject*				m_pWallsObject = NULL;
 
 	CPlayer*					m_pPlayer = NULL;
+	CShootingObject* m_pShootingObject = NULL;
 
 #ifdef _WITH_DRAW_AXIS
 	CGameObject*				m_pWorldAxis = NULL;
@@ -30,6 +31,7 @@ public:
 	void CheckObjectByWallCollisions();
 	void CheckPlayerByWallCollision();
 	void CheckObjectByBulletCollisions();
+	void CheckPlayerByBulletCollision();
 
 	virtual void Animate(float fElapsedTime);
 	virtual void Render(HDC hDCFrameBuffer, CCamera* pCamera);

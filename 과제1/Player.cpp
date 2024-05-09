@@ -129,6 +129,23 @@ void CPlayer::Render(HDC hDCFrameBuffer, CCamera* pCamera)
 	CGameObject::Render(hDCFrameBuffer, pCamera);
 }
 
+void CPlayer::OnHit()
+{
+	int msgboxID = MessageBox(
+		NULL,
+		(LPCWSTR)L"Game Over! Press OK to exit.",
+		(LPCWSTR)L"Game Over",
+		MB_ICONWARNING | MB_OK | MB_DEFBUTTON1
+	);
+
+	// 메시지 박스에서 OK 버튼을 누르면 게임 종료
+	if (msgboxID == IDOK) {
+		// 게임 종료 로직, 예를 들어 메인 윈도우를 닫습니다.
+		extern HWND g_hWnd;  // 게임의 메인 윈도우 핸들
+		PostQuitMessage(0);  // 게임 종료 메시지 전송
+	}
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 //
 CAirplanePlayer::CAirplanePlayer()

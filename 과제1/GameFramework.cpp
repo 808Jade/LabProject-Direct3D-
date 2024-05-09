@@ -145,6 +145,8 @@ void CGameFramework::OnProcessingKeyboardMessage(HWND hWnd, UINT nMessageID, WPA
 	case WM_KEYDOWN:
 		switch (wParam)
 		{
+		case 'Z':
+			break;
 		case VK_ESCAPE:
 			::PostQuitMessage(0);
 			break;
@@ -270,7 +272,11 @@ void CGameFramework::FrameAdvance()
 		PresentFrameBuffer();
 		return;
 	}
-
+	if (m_bGameOvered) {
+		DrawTextToFrameBuffer(_T("Game Over"), 70, 200, RGB(255, 0, 0));
+		PresentFrameBuffer();
+		return;
+	}
 
 	AnimateObjects();
 
