@@ -349,13 +349,14 @@ void CShootingObject::Animate(float fElapsedTime)
 		{
 			m_bBlowingUp = false;
 			m_fElapsedTimes = 0.0f;
-			SetColor(m_dwDefaultColor);
+			SetColor(RGB(0, 255, 0));
 		}
 	}
 	else
 	{
 		CRotatingObject::Animate(fElapsedTime);
 	}
+
 	for (int i = 0; i < BulletCount; i++) {
 		if (m_ppBullets[i]->m_bActive) m_ppBullets[i]->Animate(fElapsedTime);
 	}

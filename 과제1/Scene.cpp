@@ -48,7 +48,7 @@ void CScene::BuildObjects()
 	CShootingObject* pShootingObject = new CShootingObject();
 	pShootingObject->SetMesh(pCubeMesh);
 	pShootingObject->SetColor(RGB(0, 255, 0));
-	pShootingObject->SetPosition(-13.5f, 0.0f, -14.0f);
+	pShootingObject->SetPosition(13.5f, 0.0f, -14.0f);
 	pShootingObject->SetRotationAxis(XMFLOAT3(0.0f, 1.0f, 1.0f));
 	pShootingObject->SetRotationSpeed(90.0f);
 	pShootingObject->SetMovingDirection(XMFLOAT3(1.0f, 0.0f, 0.0f));
