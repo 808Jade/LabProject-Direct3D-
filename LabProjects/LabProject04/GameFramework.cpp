@@ -346,8 +346,8 @@ LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMess
 	{
 	case WM_SIZE:
 	{
-		//m_nWndClientWidth = LOWORD(lParam);
-		//m_nWndClientHeight = HIWORD(lParam);
+		m_nWndClientWidth = LOWORD(lParam);
+		m_nWndClientHeight = HIWORD(lParam);
 		break;
 	}
 	case WM_LBUTTONDOWN:
@@ -463,7 +463,7 @@ void CGameFramework::FrameAdvance()
 	dxgiPresentParameters.pDirtyRects = NULL;
 	dxgiPresentParameters.pScrollRect = NULL;
 	dxgiPresentParameters.pScrollOffset = NULL;
-	//m_pdxgiSwapChain->Present(0, 0);
+	m_pdxgiSwapChain->Present(0, 0);
 	m_nSwapChainBufferIndex = m_pdxgiSwapChain->GetCurrentBackBufferIndex();
 	/*
 		현재의 프레임 레이트를 문자열로 가져와서 주 윈도우의 타이틀로 출력한다. m_pszBuffer 문자열이

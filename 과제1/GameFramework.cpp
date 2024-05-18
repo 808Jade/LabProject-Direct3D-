@@ -18,7 +18,7 @@ void CGameFramework::OnCreate(HINSTANCE hInstance, HWND hMainWnd)
 
 	BuildObjects();
 
-	_tcscpy_s(m_pszFrameRate, _T("LabProject ("));	// 문자열 복사 함수
+	_tcscpy_s(m_pszFrameRate, _T("과제01"));	// 문자열 복사 함수
 }
 
 void CGameFramework::OnDestroy()
@@ -272,6 +272,7 @@ void CGameFramework::FrameAdvance()
 		PresentFrameBuffer();
 		return;
 	}
+
 	if (m_bGameOvered) {
 		DrawTextToFrameBuffer(_T("Game Over"), 70, 200, RGB(255, 0, 0));
 		PresentFrameBuffer();

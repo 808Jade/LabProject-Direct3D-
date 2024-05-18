@@ -352,16 +352,6 @@ void CShootingObject::FireBullet(CGameObject* pLockedObject)
 			pBulletObject->SetColor(RGB(0, 0, 255));
 		}
 	}
-
-	// 총알 발사 로직
-	//for (int i = 0; i < BulletCount; i++) {
-	//	if (!m_ppBullets[i]->m_bActive) {
-	//		m_ppBullets[i]->SetActive(true);
-	//		m_ppBullets[i]->SetPosition(GetPosition());
-	//		m_ppBullets[i]->SetMovingDirection(pLockedObject); // 'Look' 방향으로 총알 발사
-	//		break;
-	//	}
-	//}
 }
 
 void CShootingObject::Animate(float fElapsedTime) 

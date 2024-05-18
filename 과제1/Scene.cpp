@@ -359,7 +359,6 @@ void CScene::CheckPlayerByBulletCollision()
 			ppBullets[j]->Reset();     // 총알 비활성화 및 초기화
 		}
 	}
-
 }
 
 void CScene::Animate(float fElapsedTime)
